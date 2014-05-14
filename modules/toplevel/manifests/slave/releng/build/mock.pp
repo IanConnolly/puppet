@@ -39,6 +39,9 @@ tools_branch = default
 mozharness_path = /tools/checkouts/mozharness
 mozharness_repo = https://hg.mozilla.org/build/mozharness
 mozharness_branch = production";
+        "buildbot.cfg":
+            sectionname => "buildbot",
+            data        => "slave_dir = /builds/slave";
     }
 
     include runner::tasks::checkout_tools
