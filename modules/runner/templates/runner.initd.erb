@@ -25,7 +25,7 @@
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DESC="runner"
 
-CMD=<%= scope.lookupvar("::runner::settings::root")/bin/runner %>
+CMD=<%= scope.lookupvar("::runner::settings::root") %>/bin/runner
 
 test -x ${CMD} || exit 0
 
