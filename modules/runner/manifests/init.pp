@@ -66,7 +66,7 @@ class runner::settings {
     $configdir = "$root/config.d"
 }
 
-define runner::config($title, $sectionname, $data) {
+define runner::config($sectionname, $data) {
     include runner::settings
     file {
         "${runner::settings::configdir}/$title":
@@ -75,7 +75,7 @@ define runner::config($title, $sectionname, $data) {
     }
 }
 
-define runner::task($title, $content) {
+define runner::task($content) {
     include runner::settings
     file {
         "${runner::settings::taskdir}/$title":
