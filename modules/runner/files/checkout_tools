@@ -1,7 +1,11 @@
 #!/bin/bash
 # Make sure we have tools and mozharness cloned and up-to-date
-set -e
-HGTOOL=hgtool.py
+# Run as cltbld
+if [ "$USER" != "cltbld" ]; then
+	sudo -E -u cltbld $0 $*
+	exit $?
+fi
+HGTOOL=/usr/local/bin/hgtool.py
 
 TOOLS_REPO=$($RUNNER_CONFIG_CMD -g hg.tools_repo)
 TOOLS_BRANCH=$($RUNNER_CONFIG_CMD -g hg.tools_branch)
