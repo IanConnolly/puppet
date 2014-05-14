@@ -22,16 +22,18 @@
 # - it lives in the 'runner' puppet module
 
 # Required-Stop:     $local_fs
-PATH=/sbin:/bin:/usr/sbin:/usr/bin
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="runner"
 
 CMD=<%= scope.lookupvar("::runner::settings::root") %>/bin/runner
+CONFIG=<%= scope.lookupvar("::runner::settings::root") %>/runner.cfg
+TASKDIR=<%= scope.lookupvar("::runner::settings::taskdir") %>
 
 test -x ${CMD} || exit 0
 
 do_start () {
     echo "Starting runner"
-    if ${CMD}; then
+    if ${CMD} -c ${CONFIG} ${TASKDIR}; then
         echo "done"
         return 0
     else
@@ -42,7 +44,7 @@ do_start () {
 
 do_stop () {
     echo "nothing to do"
-    return 1
+    return 0
 }
 
 do_reload () {

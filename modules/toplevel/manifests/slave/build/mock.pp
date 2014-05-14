@@ -31,11 +31,11 @@ GIT_SHARE_BASE_DIR=/builds/git-shared";
         "hg.cfg":
             sectionname => "hg",
             data        => "
-tools_path = /tools/build-tools
+tools_path = /tools/checkouts/build-tools
 tools_repo = https://hg.mozilla.org/build/tools
 tools_branch = default
 
-mozharness_path = /tools/mozharness
+mozharness_path = /tools/checkouts/mozharness
 mozharness_repo = https://hg.mozilla.org/build/mozharness
 mozharness_branch = production";
     }

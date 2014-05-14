@@ -34,8 +34,7 @@ class runner::service {
             file {
                 "/etc/init.d/runner":
                     content => template("runner/runner.initd.erb"),
-                    mode    => 0755,
-                    notify  => Service['runner'];
+                    mode    => 0755;
             }
             service {
                 'runner':
@@ -75,7 +74,7 @@ define runner::config($sectionname, $data) {
     }
 }
 
-define runner::task($content=null, $source=null) {
+define runner::task($content=undef, $source=undef) {
     include runner::settings
     file {
         "${runner::settings::taskdir}/$title":
