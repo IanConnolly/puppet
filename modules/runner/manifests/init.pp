@@ -29,7 +29,7 @@ class runner::service {
     case $::operatingsystem {
         "CentOS": {
             # Which service this relies on
-            $initd_required_start="network";
+            $initd_required_start = "network"
             file {
                 "/etc/init.d/runner":
                     content => template("runner/runner.initd.erb"),
@@ -46,7 +46,7 @@ class runner::service {
             }
         }
         default: {
-            fail("Unsupported OS $::operatingsystem");
+            fail("Unsupported OS $::operatingsystem")
         }
     }
 }
@@ -54,15 +54,15 @@ class runner::service {
 class runner::settings {
     case $::operatingsystem {
         "CentOS": {
-            $root = "/opt/runner";
+            $root = "/opt/runner"
         }
 
         default: {
-            fail("Unsupported OS $::operatingsystem");
+            fail("Unsupported OS $::operatingsystem")
         }
     }
-    $taskdir = "$root/tasks.d";
-    $configdir = "$root/config.d";
+    $taskdir = "$root/tasks.d"
+    $configdir = "$root/config.d"
 }
 
 define runner::config($filename, $sectionname, $data) {
