@@ -42,4 +42,5 @@ mozharness_branch = production";
     }
 
     include runner::tasks::checkout_tools
+    include runner::tasks::purge_builds
 }
