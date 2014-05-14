@@ -21,4 +21,6 @@ class toplevel::slave::build::mock inherits toplevel::slave::build {
             unless => "/usr/bin/groups $users::builder::username | grep '\\<mock_mozilla\\>'",
             require => [Class['packages::mozilla::mock_mozilla'], Class['users::builder']];
     }
+
+    include runner
 }
