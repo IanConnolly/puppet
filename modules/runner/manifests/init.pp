@@ -26,6 +26,7 @@ class runner {
 
 # Make sure runner runs at boot
 class runner::service {
+    include runner::settings
     case $::operatingsystem {
         "CentOS": {
             # Which service this relies on
