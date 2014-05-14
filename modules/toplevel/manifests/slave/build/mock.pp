@@ -23,4 +23,10 @@ class toplevel::slave::build::mock inherits toplevel::slave::build {
     }
 
     include runner
+    runner::config {
+        "env.cfg":
+            sectionname => "env",
+            data        => "HG_SHARE_BASE_DIR=/builds/hg-shared
+GIT_SHARE_BASE_DIR=/builds/git-shared",
+    }
 }

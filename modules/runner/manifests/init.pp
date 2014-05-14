@@ -66,19 +66,19 @@ class runner::settings {
     $configdir = "$root/config.d"
 }
 
-define runner::config($filename, $sectionname, $data) {
+define runner::config($title, $sectionname, $data) {
     include runner::settings
     file {
-        "${runner::settings::configdir}/$filename":
+        "${runner::settings::configdir}/$title":
             before  => Service['runner'],
             content => template("runner/config.erb");
     }
 }
 
-define runner::task($taskname, $content) {
+define runner::task($title, $content) {
     include runner::settings
     file {
-        "${runner::settings::taskdir}/$taskname":
+        "${runner::settings::taskdir}/$title":
             before  => Service['runner'],
             content => $content,
             mode    => 0755;
