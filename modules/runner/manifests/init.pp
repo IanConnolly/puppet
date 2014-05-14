@@ -9,7 +9,7 @@ class runner {
             python   => "${packages::mozilla::python27::python}",
             require  => Class['packages::mozilla::python27'],
             packages => [
-                "https://github.com/catlee/runner",
+                "https://github.com/catlee/runner/archive/master.zip",
             ];
     }
 
@@ -19,7 +19,7 @@ class runner {
         "${runner::settings::configdir}":
             ensure => directory;
         "${runner::settings::root}/runner.cfg":
-            before  => Service['runner::service'],
+            before  => Service['runner'],
             content => template("runner/runner.cfg.erb");
     }
 }
@@ -35,12 +35,12 @@ class runner::service {
                 "/etc/init.d/runner":
                     content => template("runner/runner.initd.erb"),
                     mode    => 0755,
-                    notify  => Service['runner::service'];
+                    notify  => Service['runner'];
             }
             service {
-                'runner::service':
+                'runner':
                     require => [
-                        File["${runner::settings::root}/bin/runner"],
+                        Python::Virtualenv["${runner::settings::root}"],
                     ],
                     hasstatus => false,
                     enable    => true;
@@ -70,7 +70,7 @@ define runner::config($filename, $sectionname, $data) {
     include runner::settings
     file {
         "${runner::settings::configdir}/$filename":
-            before  => Service['runner::service'],
+            before  => Service['runner'],
             content => template("runner/config.erb");
     }
 }
@@ -79,7 +79,7 @@ define runner::task($taskname, $content) {
     include runner::settings
     file {
         "${runner::settings::taskdir}/$taskname":
-            before  => Service['runner::service'],
+            before  => Service['runner'],
             content => $content,
             mode    => 0755;
     }
