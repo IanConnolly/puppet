@@ -27,6 +27,18 @@ class toplevel::slave::build::mock inherits toplevel::slave::build {
         "env.cfg":
             sectionname => "env",
             data        => "HG_SHARE_BASE_DIR=/builds/hg-shared
-GIT_SHARE_BASE_DIR=/builds/git-shared",
+GIT_SHARE_BASE_DIR=/builds/git-shared";
+        "hg.cfg":
+            sectionname => "hg",
+            data        => "
+tools_path = /tools/build-tools
+tools_repo = https://hg.mozilla.org/build/tools
+tools_branch = default
+
+mozharness_path = /tools/mozharness
+mozharness_repo = https://hg.mozilla.org/build/mozharness
+mozharness_branch = production";
     }
+
+    include runner::tasks::checkout_tools
 }

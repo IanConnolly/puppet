@@ -75,12 +75,13 @@ define runner::config($sectionname, $data) {
     }
 }
 
-define runner::task($content) {
+define runner::task($content=null, $source=null) {
     include runner::settings
     file {
         "${runner::settings::taskdir}/$title":
             before  => Service['runner'],
             content => $content,
+            source  => $source,
             mode    => 0755;
     }
 }
