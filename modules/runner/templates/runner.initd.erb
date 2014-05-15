@@ -57,25 +57,25 @@ do_restart () {
 
 case "$1" in
   start)
-  	do_start
-  	exit $?
-	;;
+        do_start
+        exit $?
+        ;;
   stop)
-  	do_stop
-  	exit $?
-	;;
+        do_stop
+        exit $?
+        ;;
   reload)
-  	do_reload
-  	exit $?
-	;;
+        do_reload
+        exit $?
+        ;;
   restart|force-reload)
-  	do_restart
-  	exit $?
-	;;
+        do_restart
+        exit $?
+        ;;
   *)
-	log_warning_msg "Usage: $0 {start|stop|restart|reload|force-reload}"
-	exit 1
-	;;
+        log_warning_msg "Usage: $0 {start|stop|restart|reload|force-reload}"
+        exit 1
+        ;;
 esac
 
 exit 0
