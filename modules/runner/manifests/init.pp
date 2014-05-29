@@ -5,22 +5,22 @@ class runner {
     include packages::mozilla::python27
 
     python::virtualenv {
-        "${runner::settings::root}":
-            python   => "${packages::mozilla::python27::python}",
+        $runner::settings::root:
+            python   => $packages::mozilla::python27::python,
             require  => Class['packages::mozilla::python27'],
             packages => [
-                "https://github.com/catlee/runner/archive/master.zip",
+                'https://github.com/catlee/runner/archive/master.zip',
             ];
     }
 
     file {
-        "${runner::settings::taskdir}":
+        $runner::settings::taskdir:
             ensure => directory;
-        "${runner::settings::configdir}":
+        $runner::settings::configdir:
             ensure => directory;
         "${runner::settings::root}/runner.cfg":
             before  => Service['runner'],
-            content => template("runner/runner.cfg.erb");
+            content => template('runner/runner.cfg.erb');
     }
 }
 
@@ -28,59 +28,59 @@ class runner {
 class runner::service {
     include runner::settings
     case $::operatingsystem {
-        "CentOS": {
+        'CentOS': {
             # Which service this relies on
-            $initd_required_start = "network"
+            $initd_required_start = 'network'
             file {
-                "/etc/init.d/runner":
-                    content => template("runner/runner.initd.erb"),
-                    mode    => 0755;
+                '/etc/init.d/runner':
+                    content => template('runner/runner.initd.erb'),
+                    mode    => '0755';
             }
             service {
                 'runner':
-                    require => [
-                        Python::Virtualenv["${runner::settings::root}"],
+                    require   => [
+                        Python::Virtualenv[$runner::settings::root],
                     ],
                     hasstatus => false,
                     enable    => true;
             }
         }
         default: {
-            fail("Unsupported OS $::operatingsystem")
+            fail("Unsupported OS ${::operatingsystem}")
         }
     }
 }
 
 class runner::settings {
     case $::operatingsystem {
-        "CentOS": {
-            $root = "/opt/runner"
+        'CentOS': {
+            $root = '/opt/runner'
         }
 
         default: {
-            fail("Unsupported OS $::operatingsystem")
+            fail("Unsupported OS ${::operatingsystem}")
         }
     }
-    $taskdir = "$root/tasks.d"
-    $configdir = "$root/config.d"
+    $taskdir = "${root}/tasks.d"
+    $configdir = "${root}/config.d"
 }
 
 define runner::config($sectionname, $data) {
     include runner::settings
     file {
-        "${runner::settings::configdir}/$title":
+        "${runner::settings::configdir}/${title}":
             before  => Service['runner'],
-            content => template("runner/config.erb");
+            content => template('runner/config.erb');
     }
 }
 
 define runner::task($content=undef, $source=undef) {
     include runner::settings
     file {
-        "${runner::settings::taskdir}/$title":
+        "${runner::settings::taskdir}/${title}":
             before  => Service['runner'],
             content => $content,
             source  => $source,
-            mode    => 0755;
+            mode    => '0755';
     }
 }
