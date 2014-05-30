@@ -9,7 +9,7 @@ class runner {
             python   => $packages::mozilla::python27::python,
             require  => Class['packages::mozilla::python27'],
             packages => [
-                'https://github.com/catlee/runner/archive/master.zip',
+                'runner==1.0',
             ];
     }
 
