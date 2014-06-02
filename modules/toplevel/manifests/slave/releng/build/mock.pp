@@ -8,7 +8,7 @@ class toplevel::slave::releng::build::mock inherits toplevel::slave::releng::bui
     include users::builder
     include packages::gdb
 
-    if $::virtual == "xenhvm" {
+    if $::virtual == 'xenhvm' {
         # Bug 964880: make sure to enable swap on some instance types
         include tweaks::swap_on_instance_storage
     }
@@ -18,19 +18,19 @@ class toplevel::slave::releng::build::mock inherits toplevel::slave::releng::bui
     # good way to communicate the need to that class.
     exec {
         'add-builder-to-mock_mozilla':
-            command => "/usr/bin/gpasswd -a $users::builder::username mock_mozilla",
-            unless => "/usr/bin/groups $users::builder::username | grep '\\<mock_mozilla\\>'",
+            command => "/usr/bin/gpasswd -a ${users::builder::username} mock_mozilla",
+            unless  => "/usr/bin/groups ${users::builder::username} | grep '\\<mock_mozilla\\>'",
             require => [Class['packages::mozilla::mock_mozilla'], Class['users::builder']];
     }
 
     include runner
     runner::config {
-        "env.cfg":
-            sectionname => "env",
+        'env.cfg':
+            sectionname => 'env',
             data        => "HG_SHARE_BASE_DIR=/builds/hg-shared
 GIT_SHARE_BASE_DIR=/builds/git-shared";
-        "hg.cfg":
-            sectionname => "hg",
+        'hg.cfg':
+            sectionname => 'hg',
             data        => "
 tools_path = /tools/checkouts/build-tools
 tools_repo = https://hg.mozilla.org/build/tools
@@ -39,9 +39,9 @@ tools_branch = default
 mozharness_path = /tools/checkouts/mozharness
 mozharness_repo = https://hg.mozilla.org/build/mozharness
 mozharness_branch = production";
-        "buildbot.cfg":
-            sectionname => "buildbot",
-            data        => "slave_dir = /builds/slave";
+        'buildbot.cfg':
+            sectionname => 'buildbot',
+            data        => 'slave_dir = /builds/slave';
     }
 
     include runner::tasks::checkout_tools
