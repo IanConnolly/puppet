@@ -31,10 +31,10 @@ class toplevel::slave::build inherits toplevel::slave {
     include aws::instance_storage
 
     ccache::ccache_dir {
-        "/builds/ccache":
-            maxsize => "10G",
-            owner => $users::builder::username,
-            group => $users::builder::group;
+        '/builds/ccache':
+            maxsize => '10G',
+            owner   => $users::builder::username,
+            group   => $users::builder::group;
     }
 
     class {
