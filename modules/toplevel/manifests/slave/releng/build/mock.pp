@@ -27,21 +27,13 @@ class toplevel::slave::releng::build::mock inherits toplevel::slave::releng::bui
     runner::config {
         'env.cfg':
             sectionname => 'env',
-            data        => "HG_SHARE_BASE_DIR=/builds/hg-shared
-GIT_SHARE_BASE_DIR=/builds/git-shared";
+            data        => template('toplevel/slave/build/env.cfg.erb');
         'hg.cfg':
             sectionname => 'hg',
-            data        => "
-tools_path = /tools/checkouts/build-tools
-tools_repo = https://hg.mozilla.org/build/tools
-tools_branch = default
-
-mozharness_path = /tools/checkouts/mozharness
-mozharness_repo = https://hg.mozilla.org/build/mozharness
-mozharness_branch = production";
+            data        => template('toplevel/slave/build/hg.cfg.erb');
         'buildbot.cfg':
             sectionname => 'buildbot',
-            data        => 'slave_dir = /builds/slave';
+            data        => template('toplevel/slave/build/buildbot.cfg.erb');
     }
 
     include runner::tasks::checkout_tools
