@@ -7,6 +7,9 @@ if [ "$USER" != "cltbld" ]; then
 fi
 HGTOOL=/usr/local/bin/hgtool.py
 
+# $RUNNER_CONFIG_CMD is guaranteed to be set by Runner itself. See Runner
+# documentation for more information.
+
 TOOLS_REPO=$($RUNNER_CONFIG_CMD -g hg.tools_repo)
 TOOLS_BRANCH=$($RUNNER_CONFIG_CMD -g hg.tools_branch)
 TOOLS_PATH=$($RUNNER_CONFIG_CMD -g hg.tools_path)
