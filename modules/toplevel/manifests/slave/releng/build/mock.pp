@@ -24,17 +24,6 @@ class toplevel::slave::releng::build::mock inherits toplevel::slave::releng::bui
     }
 
     include runner
-    runner::config {
-        'env.cfg':
-            sectionname => 'env',
-            data        => template('toplevel/slave/build/env.cfg.erb');
-        'hg.cfg':
-            sectionname => 'hg',
-            data        => template('toplevel/slave/build/hg.cfg.erb');
-        'buildbot.cfg':
-            sectionname => 'buildbot',
-            data        => template('toplevel/slave/build/buildbot.cfg.erb');
-    }
 
     include runner::tasks::checkout_tools
     include runner::tasks::purge_builds

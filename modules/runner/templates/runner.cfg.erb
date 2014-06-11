@@ -1,3 +1,16 @@
 [runner]
 max_time = 600
-include_dir = <%= scope.lookupvar("::runner::settings::configdir") %>
+[buildbot]
+slave_dir = <% @runner_buildbot_slave_dir %>
+[env]
+HG_SHARE_BASE_DIR=<% @runner_env_hg_share_base_dir %>
+GIT_SHARE_BASE_DIR=<% @runner_env_git_share_base_dir %>
+[hg]
+tools_path = <% @runner_hg_tools_path %>
+tools_repo = <% @runner_hg_tools_repo %>
+tools_branch = <% @runner_hg_tools_branch %>
+
+mozharness_path = <% @runner_hg_mozharness_path %>
+mozharness_repo = <% @runner_hg_mozharness_repo %>
+mozharness_branch = <% @runner_hg_mozharness_branch %>
+
