@@ -1,16 +1,16 @@
 [runner]
 max_time = 600
 [buildbot]
-slave_dir = <% @runner_buildbot_slave_dir %>
+slave_dir = <%= scope.lookupvar('::config::runner_buildbot_slave_dir') %>
 [env]
-HG_SHARE_BASE_DIR=<% @runner_env_hg_share_base_dir %>
-GIT_SHARE_BASE_DIR=<% @runner_env_git_share_base_dir %>
+HG_SHARE_BASE_DIR=<%= scope.lookupvar('::config::runner_env_hg_share_base_dir') %>
+GIT_SHARE_BASE_DIR=<%= scope.lookupvar('::config::runner_env_git_share_base_dir') %>
 [hg]
-tools_path = <% @runner_hg_tools_path %>
-tools_repo = <% @runner_hg_tools_repo %>
-tools_branch = <% @runner_hg_tools_branch %>
+tools_path = <%= scope.lookupvar('::config::runner_hg_tools_path') %>
+tools_repo = <%= scope.lookupvar('::config::runner_hg_tools_repo') %>
+tools_branch = <%= scope.lookupvar('::config::runner_hg_tools_branch') %>
 
-mozharness_path = <% @runner_hg_mozharness_path %>
-mozharness_repo = <% @runner_hg_mozharness_repo %>
-mozharness_branch = <% @runner_hg_mozharness_branch %>
+mozharness_path = <%= scope.lookupvar('::config::runner_hg_mozharness_path') %>
+mozharness_repo = <%= scope.lookupvar('::config::runner_hg_mozharness_repo') %>
+mozharness_branch = <%= scope.lookupvar('::config::runner_hg_mozharness_branch') %>
 

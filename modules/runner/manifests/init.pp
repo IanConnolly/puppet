@@ -3,6 +3,7 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # runner module
 class runner {
+    include ::config
     include runner::service
     include runner::settings
     include packages::mozilla::python27
