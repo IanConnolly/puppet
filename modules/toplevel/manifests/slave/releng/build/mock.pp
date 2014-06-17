@@ -23,7 +23,6 @@ class toplevel::slave::releng::build::mock inherits toplevel::slave::releng::bui
             require => [Class['packages::mozilla::mock_mozilla'], Class['users::builder']];
     }
 
-    include runner
 
     include runner::tasks::checkout_tools
     include runner::tasks::purge_builds

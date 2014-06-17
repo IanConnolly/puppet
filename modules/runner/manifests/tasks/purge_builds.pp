@@ -1,5 +1,6 @@
 class runner::tasks::purge_builds($runlevel=1) {
     # Requires tools checked out
+    include runner
     include runner::tasks::checkout_tools
 
     runner::task {

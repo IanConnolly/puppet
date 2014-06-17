@@ -1,5 +1,7 @@
 class runner::tasks::checkout_tools($runlevel=0) {
     include packages::mozilla::hgtool
+    include runner
+    
     file {
         '/tools/checkouts':
              ensure => directory,
