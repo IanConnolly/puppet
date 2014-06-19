@@ -59,7 +59,7 @@ class puppet::atboot {
             
             exec {
                 'initd-refresh':
-                    command => 'chkconfig puppet resetpriorities',
+                    command => '/sbin/chkconfig puppet resetpriorities',
                     refreshonly => true;
                 
             }
