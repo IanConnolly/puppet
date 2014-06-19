@@ -53,7 +53,15 @@ class puppet::atboot {
                     # packages::puppet will overwrite this file, so make sure it gets
                     # installed first
                     require => Class['packages::puppet'],
-                    content => template("puppet/puppet-centos-initd.erb");
+                    content => template("puppet/puppet-centos-initd.erb"),
+                    notify => Exec['initd-refresh'];
+            }
+            
+            exec {
+                'initd-refresh':
+                    command => 'chkconfig puppet resetpriorities',
+                    refreshonly => true;
+                
             }
 
             service {
