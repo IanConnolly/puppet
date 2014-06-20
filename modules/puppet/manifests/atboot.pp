@@ -58,7 +58,8 @@ class puppet::atboot {
                     # if we're editing init.d/puppet priority values
                     # on an existing machine
                     # then we need to explicitly force an update of the
-                    # rc3.d symlink
+                    # rc3.d symlink and we want to reboot because we've changed
+                    # what we want to come after puppet in the boot order
                     notify => [ Exec['initd-refresh'], Exec['reboot-after-puppet'] ];
             }
             
