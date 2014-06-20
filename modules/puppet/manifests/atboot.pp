@@ -68,8 +68,7 @@ class puppet::atboot {
                     # symlinks in rcX.d with the values from the service's 
                     # init.d script
                     command => '/sbin/chkconfig puppet resetpriorities',
-                    refreshonly => true;
-                
+                    refreshonly => true;    
             }
 
             service {
