@@ -58,7 +58,7 @@ class puppet::atboot {
                     # on an existing machine
                     # then we need to explicitly force an update of the
                     # rc3.d symlink
-                    notify => Exec['initd-refresh'];
+                    notify => [ Exec['initd-refresh'], Exec['reboot-after-puppet'] ];
             }
             
             exec {
