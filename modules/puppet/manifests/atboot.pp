@@ -54,11 +54,18 @@ class puppet::atboot {
                     # installed first
                     require => Class['packages::puppet'],
                     content => template("puppet/puppet-centos-initd.erb"),
+                    # if we're editing init.d/puppet priority values
+                    # on an existing machine
+                    # then we need to explicitly force an update of the
+                    # rc3.d symlink
                     notify => Exec['initd-refresh'];
             }
             
             exec {
                 'initd-refresh':
+                    # resetpriorities tells chkconfig to update the 
+                    # symlinks in rcX.d with the values from the service's 
+                    # init.d script
                     command => '/sbin/chkconfig puppet resetpriorities',
                     refreshonly => true;
                 
