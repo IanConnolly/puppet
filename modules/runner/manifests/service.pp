@@ -6,8 +6,6 @@ class runner::service {
     include runner::settings
     case $::operatingsystem {
         'CentOS': {
-            # Which service this relies on
-            $initd_required_start = 'network'
             file {
                 '/etc/init.d/runner':
                     content => template('runner/runner.initd.erb'),
