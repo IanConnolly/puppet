@@ -27,7 +27,8 @@ class puppet::atboot {
     exec {
         # ask the puppet startup script to reboot
         "reboot-after-puppet":
-            command => "/usr/bin/touch /REBOOT_AFTER_PUPPET",
+            command => "touch /REBOOT_AFTER_PUPPET",
+            path => ['/bin/', '/usr/bin/'],
             refreshonly => true;
     }
 
