@@ -8,7 +8,7 @@ class buildslave::startup::runner {
             notify => Exec['bb-service-delete'];
     }
     exec {
-        'bb-delete':
+        'bb-service-delete':
             command => '/sbin/chkconfig --del buildbot',
             refreshonly => true;
     }
