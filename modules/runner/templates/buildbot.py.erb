@@ -25,11 +25,7 @@ def main():
             and os.access(BUILDSLAVE_CMD, os.X_OK)):
         exit(0)
 
-    p = subprocess.Popen("su - {} sh -c {} {}".format(BUILD_USER,
-                                                      PYTHON,
-                                                      RUNSLAVE),
-                         shell=True)
-
+    p = subprocess.Popen(['su', '-', BUILD_USER, '-c', PYTHON, RUNSLAVE])
     p.wait()
     exit(p.returncode)
 
