@@ -9,7 +9,7 @@ class buildslave::startup::runner {
     }
     exec {
         'bb-service-delete':
-            command => '/sbin/chkconfig --del buildbot',
+            command => '/bin/rm /etc/rc3.d/*buildbot',
             refreshonly => true;
     }
 }
