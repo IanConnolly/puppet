@@ -30,7 +30,7 @@ def main():
 
     print "buildbot: before"
     p = subprocess.Popen(['su', '-', BUILD_USER, '-c', PYTHON + ' ' + RUNSLAVE])
-    print "buildbot: started"
+    print "buildbot: started. id = {}".format(p.pid)
     p.wait()
     exit(0)
 
