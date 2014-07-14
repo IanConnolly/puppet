@@ -15,7 +15,7 @@ BUILDSLAVE_CMD = '/tools/buildbot/bin/buildslave'
 RUNSLAVE = '/usr/local/bin/runslave.py'
 # use the python from the buildbot virtualenv
 PYTHON = '/tools/buildbot/bin/python'
-BUILD_USER = <%= scope.lookupvar('::config::builder_username') %>
+BUILD_USER = "<%= scope.lookupvar('::config::builder_username') %>"
 
 
 def main():
