@@ -3,7 +3,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 # Make sure runner runs at boot
 class runner::tasks::buildbot($runlevel=4) {
-    #include packages::mozilla::psutil
     include runner
 
     runner::task {
