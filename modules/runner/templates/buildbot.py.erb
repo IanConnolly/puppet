@@ -32,8 +32,7 @@ def main():
     p = subprocess.Popen(['su', '-', BUILD_USER, '-c', PYTHON + ' ' + RUNSLAVE])
     print "buildbot: started"
     p.wait()
-    print "buildbot: finished with {}".format(p.returncode)
-    exit(p.returncode)
+    exit(0)
 
 
 
