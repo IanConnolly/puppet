@@ -22,16 +22,17 @@ def main():
     logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s")
 
     print "buildbot " + str(os.path.isfile(BUILDSLAVE_CMD)
-            and os.access(BUILDSLAVE_CMD, os.X_OK))
+                            and os.access(BUILDSLAVE_CMD, os.X_OK))
 
     if not (os.path.isfile(BUILDSLAVE_CMD)
             and os.access(BUILDSLAVE_CMD, os.X_OK)):
         exit(0)
 
     print "buildbot: before"
-    p = subprocess.Popen(['su', '-', BUILD_USER, '-c', PYTHON, RUNSLAVE])
-    print "buildbot: after"
+    p = subprocess.Popen(['su', '-', BUILD_USER, '-c', PYTHON + ' ' + RUNSLAVE])
+    print "buildbot: started"
     p.wait()
+    print "buildbot: finished with {}".format(p.returncode)
     exit(p.returncode)
 
 
