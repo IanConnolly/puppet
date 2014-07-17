@@ -18,8 +18,16 @@ PYTHON = '/tools/buildbot/bin/python'
 BUILD_USER = "<%= scope.lookupvar('::config::builder_username') %>"
 
 
+def buildbot_running():
+    return os.path.isfile('/builds/slave/pidfile')
+
+
 def main():
     logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s")
+
+    if buildbot_running():
+        print "Buildbot already running, exiting"
+        exit(0)
 
     print "buildbot " + str(os.path.isfile(BUILDSLAVE_CMD)
                             and os.access(BUILDSLAVE_CMD, os.X_OK))
