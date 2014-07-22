@@ -17,12 +17,26 @@ PYTHON = '/tools/buildbot/bin/python'
 BUILD_USER = "<%= scope.lookupvar('::config::builder_username') %>"
 
 
-def buildbot_running():
-    return os.path.isfile('/builds/slave/twistd.pid')
+def buildbot_process_id():
+    """Returns the pid of buildbot if it's running, zero otherwise
+    """
+    try:
+        with open('builds/slave/twistd.pid', 'r') as f:
+            pid = int(f.read())
+        try:
+            os.kill(pid, 0)  # check if process is running
+        except OSError:
+            print "Old pidfile still exists, deleting and continuing"
+            os.remove('builds/slave/twistd.pid')
+            return 0
+        return pid
+    except IOError:
+        # no pidfile, definitely not running
+        return 0
 
 
 def main():
-    if buildbot_running():
+    if buildbot_process_id():
         print >>sys.stderr, "Buildbot already running, exiting."
         exit(0)
 
@@ -37,17 +51,16 @@ def main():
                           PYTHON + ' ' + RUNSLAVE])
     p.wait()
 
-    if buildbot_running():
+    pid = buildbot_process_id()
+    if pid:
         print "Buildbot started successfully."
-        with open('/builds/slave/twistd.pid', 'r') as f:
-            pid = int(f.read())
-            while True:
-                try:
-                    os.kill(pid, 0)
-                except OSError:
-                    print "Buildbot finished."
-                    break
-                time.sleep(5)
+        while True:
+            try:
+                os.kill(pid, 0)
+            except OSError:
+                print "Buildbot finished."
+                break
+            time.sleep(5)
     else:
         print >>sys.stderr, "Buildbot failed to start, exiting runner."
         exit(1)
