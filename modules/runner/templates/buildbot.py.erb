@@ -7,9 +7,7 @@
 import os
 import subprocess
 import time
-
-import logging
-log = logging.getLogger(__name__)
+import sys
 
 
 BUILDSLAVE_CMD = '/tools/buildbot/bin/buildslave'
@@ -24,20 +22,15 @@ def buildbot_running():
 
 
 def main():
-    logging.basicConfig(format="%(asctime)s - %(levelname)s - %(message)s")
-
     if buildbot_running():
-        print "Buildbot already running, exiting"
+        print >>sys.stderr, "Buildbot already running, exiting."
         exit(0)
-
-    print "buildbot " + str(os.path.isfile(BUILDSLAVE_CMD)
-                            and os.access(BUILDSLAVE_CMD, os.X_OK))
 
     if not (os.path.isfile(BUILDSLAVE_CMD)
             and os.access(BUILDSLAVE_CMD, os.X_OK)):
         exit(0)
 
-    print "buildbot: before"
+    print "Starting buildbot via runslave.py."
     p = subprocess.Popen(['su', '-',
                           BUILD_USER,
                           '-c',
@@ -45,18 +38,18 @@ def main():
     p.wait()
 
     if buildbot_running():
+        print "Buildbot started successfully."
         with open('/builds/slave/twistd.pid', 'r') as f:
             pid = int(f.read())
             while True:
                 try:
                     os.kill(pid, 0)
                 except OSError:
-                    print "Buildbot finished!"
+                    print "Buildbot finished. Cleaning up."
                     break
-                print "Buildbot still running!"
                 time.sleep(5)
     else:
-        print "Buildbot failed to start!"
+        print >>sys.stderr, "Buildbot failed to start, exiting runner."
         exit(1)
 
     exit(0)
