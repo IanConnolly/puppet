@@ -20,7 +20,7 @@ BUILD_USER = "<%= scope.lookupvar('::config::builder_username') %>"
 
 
 def buildbot_running():
-    return os.path.isfile('/builds/slave/pidfile')
+    return os.path.isfile('/builds/slave/twistd.pid')
 
 
 def main():
@@ -45,7 +45,7 @@ def main():
     p.wait()
 
     if buildbot_running():
-        with open('/builds/slave/pidfile', 'r') as f:
+        with open('/builds/slave/twistd.pid', 'r') as f:
             pid = int(f.read())
             while True:
                 try:
