@@ -42,7 +42,6 @@ def main():
                           BUILD_USER,
                           '-c',
                           PYTHON + ' ' + RUNSLAVE])
-    print "buildbot: started. id = {}".format(p.pid)
     p.wait()
 
     if buildbot_running():
