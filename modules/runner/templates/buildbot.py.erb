@@ -45,7 +45,7 @@ def main():
                 try:
                     os.kill(pid, 0)
                 except OSError:
-                    print "Buildbot finished. Cleaning up."
+                    print "Buildbot finished."
                     break
                 time.sleep(5)
     else:
