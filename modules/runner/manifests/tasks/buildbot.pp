@@ -7,6 +7,6 @@ class runner::tasks::buildbot($runlevel=4) {
 
     runner::task {
         "${runlevel}-buildbot.py":
-            content  => template('runner/buildbot.py.erb');
+            content  => template("${module_name}/tasks/buildbot.py.erb");
     }
 }
