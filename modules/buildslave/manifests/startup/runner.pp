@@ -12,4 +12,5 @@ class buildslave::startup::runner {
             command => '/bin/rm /etc/rc3.d/*buildbot',
             refreshonly => true;
     }
+    include runner::tasks::buildbot
 }
