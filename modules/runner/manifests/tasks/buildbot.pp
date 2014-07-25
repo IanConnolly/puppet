@@ -11,7 +11,7 @@ class runner::tasks::buildbot($runlevel=4) {
             require => [
                 File['/usr/local/bin/runslave.py'],
                 Class['buildslave::install']
-            ];
+            ],
             content  => template("${module_name}/tasks/buildbot.py.erb");
     }
 }
