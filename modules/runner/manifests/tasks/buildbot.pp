@@ -4,9 +4,14 @@
 # Make sure runner runs at boot
 class runner::tasks::buildbot($runlevel=4) {
     include runner
+    include buildslave::install
 
     runner::task {
         "${runlevel}-buildbot.py":
+            require => [
+                File['/usr/local/bin/runslave.py'],
+                Class['buildslave::install']
+            ];
             content  => template("${module_name}/tasks/buildbot.py.erb");
     }
 }
