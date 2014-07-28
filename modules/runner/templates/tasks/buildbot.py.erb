@@ -39,11 +39,12 @@ def buildbot_process_id():
 def main():
     if buildbot_process_id():
         print >>sys.stderr, "Buildbot already running, exiting."
-        exit(0)
+        exit(1)
 
     if not (os.path.isfile(BUILDSLAVE_CMD)
             and os.access(BUILDSLAVE_CMD, os.X_OK)):
-        exit(0)
+        print >>sys.stderr, "{} does not exist, exiting".format(BUILDSLAVE_CMD)
+        exit(1)
 
     print "Starting buildbot via runslave.py."
     p = subprocess.Popen(['su', '-',
