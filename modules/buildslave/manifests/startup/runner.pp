@@ -9,7 +9,7 @@ class buildslave::startup::runner {
     }
     exec {
         'bb-service-delete':
-            command => '/bin/find /etc/rc.d -type l -name '*buildbot' | /usr/bin/xargs /bin/rm',
+            command => "/bin/find /etc/rc.d -type l -name '*buildbot' | /usr/bin/xargs /bin/rm",
             refreshonly => true;
     }
     include runner::tasks::buildbot
