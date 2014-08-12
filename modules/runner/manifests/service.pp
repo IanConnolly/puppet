@@ -5,12 +5,16 @@
 class runner::service {
     include runner::settings
     case $::operatingsystem {
-        'CentOS': {
+        'CentOS', 'Ubuntu': {
             file {
                 '/etc/init.d/runner':
                     content => template('runner/runner.initd.erb'),
                     mode    => '0755',
                     notify  => Exec['initd-r-refresh'];
+            }
+            package {
+                'chkconfig':
+                    ensure => 'installed'
             }
             exec {
                 'initd-r-refresh':

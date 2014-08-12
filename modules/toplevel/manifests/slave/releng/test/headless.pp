@@ -3,6 +3,9 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 class toplevel::slave::releng::test::headless inherits toplevel::slave::releng::test {
+    include runner::tasks::checkout_tools
+    include runner::tasks::purge_builds
+    include runner::tasks::update_shared_repos
     class {
         gui:
             on_gpu => false,
