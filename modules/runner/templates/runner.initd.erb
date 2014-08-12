@@ -9,6 +9,7 @@
 ### BEGIN INIT INFO
 # Provides:          runner
 # Required-Start:    $local_fs $network puppet
+# Required-Stop:     $local_fs puppet
 # Should-Start:      $remote_fs
 # Should-Stop:       $remote_fs
 # Default-Start:     2 3 4 5
@@ -21,7 +22,6 @@
 # - This file is distributed by Puppet to all linux build servers
 # - it lives in the 'runner' puppet module
 
-# Required-Stop:     $local_fs
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="runner"
 
