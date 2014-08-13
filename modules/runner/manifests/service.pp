@@ -10,7 +10,8 @@ class runner::service {
                 '/etc/init.d/runner':
                     content => template('runner/runner.initd.erb'),
                     mode    => '0755',
-                    notify  => Exec['initd-r-refresh'];
+                    #notify  => Exec['initd-r-refresh'],
+                    notify => Service['runner'];
             }
             package {
                 'chkconfig':
