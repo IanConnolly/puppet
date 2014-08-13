@@ -30,8 +30,7 @@ class runner::service {
                     require   => [
                         Python::Virtualenv[$runner::settings::root],
                     ],
-                    hasstatus => false,
-                    enable    => true;
+                    hasstatus => false;
             }
         }
         default: {
